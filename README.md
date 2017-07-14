@@ -1,2 +1,2 @@
-# java-stone-board-game
+# Stone Board Game
 Yet another 2 players board game
