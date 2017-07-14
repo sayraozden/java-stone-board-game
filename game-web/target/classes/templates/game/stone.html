@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+    <head>
+        <title>Stone Game</title>
+        <link rel="stylesheet" href="/css/game/stone.css"/>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <table>
+                            <tr>
+                                
+                            </tr>
+                            <td>
+                                
+                            </td>
+                        </table>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <th:block layout:fragment="scripts">
+        <script src="/js/game/stone.js"></script>
+    </th:block>
+</html>
