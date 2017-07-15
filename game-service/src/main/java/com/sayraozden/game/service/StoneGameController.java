@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-@SessionAttributes("stoneGame")
 @RestController
+@SessionAttributes("stoneGame")
 @RequestMapping(value = "/stonegame")
 public class StoneGameController {
 
@@ -81,11 +81,13 @@ public class StoneGameController {
             HttpServletRequest request,
             HttpSession session,
             @ModelAttribute("stoneGame") StoneGame game,
-            @RequestParam(value = "pitIndex", required = true) int pitIndex
+            @RequestParam(value = "pitIndex", required = false) Integer pitIndex
     ) {
 
         try {
-            game.doMove(pitIndex);
+            if (pitIndex != null) {
+                game.doMove(pitIndex);
+            }
         } catch (IllegalStateException e) {
             logger.error(e);
         }

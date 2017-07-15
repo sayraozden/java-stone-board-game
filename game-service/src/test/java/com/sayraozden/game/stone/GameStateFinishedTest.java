@@ -1,4 +1,4 @@
-package com.sayraozden.game.service;
+package com.sayraozden.game.stone;
 
 import com.sayraozden.game.stone.StoneGame;
 import com.sayraozden.game.stone.GameStateFinished;
@@ -37,7 +37,7 @@ public class GameStateFinishedTest {
     /**
      * Test of startGame method, of class GameStateFinished.
      */
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void testStartGame() {
         this.state.startGame(new ArrayList<StonePlayer>());
     }

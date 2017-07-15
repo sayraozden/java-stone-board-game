@@ -1,4 +1,4 @@
-package com.sayraozden.game.service;
+package com.sayraozden.game.stone;
 
 import com.sayraozden.game.stone.Stone;
 import com.sayraozden.game.stone.Pit;
@@ -61,9 +61,9 @@ public class StoneBoardTest {
     @Test
     public void testToString() {
         //TODO Consider to test this with the dynamic data
-        assertThat(this.stoneBoard.toString(), is("+6+ +6+ +6+ +6+ +6+ +6+ +0+ = 36"));
+        assertThat(this.stoneBoard.toString(), is("06-> 06-> 06-> 06-> 06-> 06-> | 00 | = 36"));
         this.stoneBoard.addStoneToPit(new Stone(), 0);
-        assertThat(this.stoneBoard.toString(), is("+7+ +6+ +6+ +6+ +6+ +6+ +0+ = 37"));
+        assertThat(this.stoneBoard.toString(), is("07-> 06-> 06-> 06-> 06-> 06-> | 00 | = 37"));
 
     }
 

@@ -1,4 +1,4 @@
-package com.sayraozden.game.service;
+package com.sayraozden.game.stone;
 
 import com.sayraozden.game.stone.StonePlayer;
 import java.util.Random;
