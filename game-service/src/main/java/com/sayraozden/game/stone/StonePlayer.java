@@ -49,12 +49,12 @@ public class StonePlayer extends Player {
      */
     public StoneBoard getBoard() {
         return this.board;
-    }  
-    
+    }
+
     /**
      *
      * @return Total score of the StonePlayer
-     */        
+     */
     public int getScore() {
         return this.getBoard().getTotalStoneCount();
     }
