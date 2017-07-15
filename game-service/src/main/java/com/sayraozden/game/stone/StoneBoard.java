@@ -1,6 +1,7 @@
 package com.sayraozden.game.stone;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -10,6 +11,7 @@ import java.util.Iterator;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
+@JsonIgnoreProperties({"empty", "size","totalStoneCount"})
 public class StoneBoard {
 
     //Maximum number of pits on the board
@@ -29,13 +31,13 @@ public class StoneBoard {
 
         /* Create all stones on the board */
         for (int i = 0; i < PIT_COUNT - 1; i++) {
-            Pit pit = new Pit();
+            Pit pit = new Pit(i);
             pit.createStone(STONE_COUNT);
             pitList.add(pit);
         }
 
         /* Add a big pit at the most right place of the board */
-        pitList.add(new Pit(true));
+        pitList.add(new Pit(PIT_COUNT - 1, true));
     }
 
     /**
@@ -51,7 +53,6 @@ public class StoneBoard {
      *
      * @return Whether all pits are empty or not (Excluding big pit)
      */
-    @JsonIgnore
     public boolean isEmpty() {
         for (Pit pit : this.pitList) {
             if (!pit.isEmpty() && !pit.isBigPit()) {
@@ -64,7 +65,6 @@ public class StoneBoard {
     /**
      * @return Size of the board including big pit
      */
-    @JsonIgnore
     public int getSize() {
         return PIT_COUNT;
     }
@@ -128,7 +128,7 @@ public class StoneBoard {
      * @return A stone from Pit by given pitIndex
      */
     public Stone getStoneFromPit(int pitIndex) throws IndexOutOfBoundsException {
-        return this.pitList.get(pitIndex).getStone();
+        return this.pitList.get(pitIndex).takeStone();
     }
 
     /**
@@ -144,6 +144,7 @@ public class StoneBoard {
      *
      * @return Unmodifiable pit objects
      */
+    @JsonProperty("pits")
     public ArrayList<Pit> getPitList() {
         //TODO think make here read-only
         return this.pitList;

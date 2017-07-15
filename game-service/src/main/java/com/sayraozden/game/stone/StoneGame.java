@@ -1,9 +1,8 @@
 package com.sayraozden.game.stone;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.log4j.Logger;
 
 // TODO Write game explanation and rules here
@@ -17,7 +16,7 @@ public class StoneGame implements Serializable {
     //Max allowed players for this game 
     private static final int MAX_PLAYERS = 2;
 
-    // Holds all players
+    // Holds all players    
     private final ArrayList<StonePlayer> playerList;
 
     // Holds current player which has right to move
@@ -36,14 +35,17 @@ public class StoneGame implements Serializable {
         playerList = new ArrayList<>();
     }
 
-    public Map<Integer, ArrayList<Pit>> getGameBoard() {
-        Map<Integer, ArrayList<Pit>> gameBoard = new HashMap<>();
+    @JsonProperty("players")
+    public ArrayList<StonePlayer> getGameBoard() {
+        return this.playerList;
+    }
 
-        for (StonePlayer player : this.playerList) {
-            gameBoard.put(player.getID(), player.getBoard().getPitList());
-        }
-
-        return gameBoard;
+    /**
+     *
+     * @return Next player to move
+     */
+    public int getNextPlayerID() {
+        return this.currentPlayer.getID();
     }
 
     /**
@@ -73,7 +75,7 @@ public class StoneGame implements Serializable {
      * @throws IllegalStateException
      */
     public void doMove(int pitIndex) throws IllegalStateException {
-        this.currentPlayer = this.currentState.doMove(this.currentPlayer, pitIndex);        
+        this.currentPlayer = this.currentState.doMove(this.currentPlayer, pitIndex);
     }
 
     /**
@@ -110,7 +112,7 @@ public class StoneGame implements Serializable {
         String yourTurnStatement = "Your turn --> ";
 
         for (StonePlayer player : this.playerList) {
-            
+
             if (player.getID() == this.currentPlayer.getID()) {
                 sb.append(yourTurnStatement);
             } else {

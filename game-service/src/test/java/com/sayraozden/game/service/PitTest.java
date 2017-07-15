@@ -24,7 +24,7 @@ public class PitTest {
 
     @Before
     public void setUp() {
-        this.pit = new Pit();
+        this.pit = new Pit(0);
     }
 
     @After
@@ -67,7 +67,7 @@ public class PitTest {
         
         int stoneCount = this.createRandomNumberOfStonesOnPit();
 
-        assertThat(this.pit.getStone(), instanceOf(Stone.class));
+        assertThat(this.pit.takeStone(), instanceOf(Stone.class));
         assertThat(this.pit.getCount(), is(stoneCount - 1));
 
     }
@@ -77,7 +77,7 @@ public class PitTest {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetStone_withoutStone() {
-        this.pit.getStone();
+        this.pit.takeStone();
     }
 
     /**

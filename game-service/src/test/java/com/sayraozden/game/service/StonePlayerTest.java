@@ -38,7 +38,7 @@ public class StonePlayerTest {
         int addedStoneCount = this.getRandomNumber();
         int countBeforeAddition = this.stonePlayer.getBoard().getTotalStoneCount();
         this.stonePlayer.getBoard().createStoneAtPit(addedStoneCount, 0);
-        assertThat(this.stonePlayer.getPoint(), is(addedStoneCount + countBeforeAddition));
+        assertThat(this.stonePlayer.getScore(), is(addedStoneCount + countBeforeAddition));
 
     }
 

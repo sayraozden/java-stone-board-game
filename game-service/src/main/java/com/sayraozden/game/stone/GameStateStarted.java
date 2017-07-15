@@ -48,7 +48,7 @@ public class GameStateStarted implements GameState {
         while (!pitToGet.isEmpty() && pitToSawPointer < playerBoard.getSize() - 1) {
             /* While current selected pit has stones, saw them to the pits on the right direction until end of the board */
             pitToSaw = playerBoard.getPit(++pitToSawPointer);
-            pitToSaw.addStone(pitToGet.getStone());
+            pitToSaw.addStone(pitToGet.takeStone());
         }
 
         //The opponent player for this turn

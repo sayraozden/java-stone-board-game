@@ -1,6 +1,7 @@
 package com.sayraozden.game.stone;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
 /**
@@ -8,29 +9,40 @@ import java.util.ArrayList;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
+@JsonIgnoreProperties({"empty", "allStones"})
 public class Pit {
 
-    @JsonIgnore
     private ArrayList<Stone> stoneList;
+
+    //Pit index
+    private int index;
 
     //Is this a normal or big pit
     private boolean isBigPit = false;
 
     /**
      * Constructor.
+     *
+     * @param index Pit index
      */
-    public Pit() {
+    public Pit(int index) {
+        this.index = index;
         stoneList = new ArrayList<>();
     }
 
     /**
      * Constructor.
      *
+     * @param index Pit index
      * @param isBigPit Is this a normal or big pit
      */
-    public Pit(boolean isBigPit) {
-        this();
+    public Pit(int index, boolean isBigPit) {
+        this(index);
         this.isBigPit = isBigPit;
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
     /**
@@ -68,8 +80,7 @@ public class Pit {
      * @return Stone one stone which pit has
      * @throws IndexOutOfBoundsException
      */
-    @JsonIgnore
-    public Stone getStone() throws IndexOutOfBoundsException {
+    public Stone takeStone() throws IndexOutOfBoundsException {
         return this.stoneList.remove(0);
     }
 
@@ -103,6 +114,7 @@ public class Pit {
     /*
      * @return Count of the stones TimeComplexity: O(1)
      */
+    @JsonProperty("count")
     public int getCount() {
         return this.stoneList.size();
     }
