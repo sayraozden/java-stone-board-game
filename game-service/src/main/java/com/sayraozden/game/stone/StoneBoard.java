@@ -1,5 +1,6 @@
 package com.sayraozden.game.stone;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -18,23 +19,23 @@ public class StoneBoard {
     private static final int STONE_COUNT = 6;
 
     //Pit repository
-    private final ArrayList<Pit> pitRepository;
+    private final ArrayList<Pit> pitList;
 
     /**
      * Constructor.
      */
     public StoneBoard() {
-        this.pitRepository = new ArrayList<>();
+        this.pitList = new ArrayList<>();
 
         /* Create all stones on the board */
         for (int i = 0; i < PIT_COUNT - 1; i++) {
             Pit pit = new Pit();
             pit.createStone(STONE_COUNT);
-            pitRepository.add(pit);
+            pitList.add(pit);
         }
 
         /* Add a big pit at the most right place of the board */
-        pitRepository.add(new Pit(true));
+        pitList.add(new Pit(true));
     }
 
     /**
@@ -43,30 +44,16 @@ public class StoneBoard {
      * @return Pit by given pitIndex
      */
     public Pit getPit(int pitIndex) throws IndexOutOfBoundsException {
-        return this.pitRepository.get(pitIndex);
+        return this.pitList.get(pitIndex);
     }
 
     /**
      *
-     * @return Board status as a String: TimeComplexity: O(n)
+     * @return Whether all pits are empty or not (Excluding big pit)
      */
-    @Override
-    public String toString() {
-        String trace = "";
-        for (Pit pit : this.pitRepository) {
-            trace += "+" + pit.getCount() + "+ ";
-        }
-        trace += "= " + this.getTotalStoneCount();
-
-        return trace;
-    }
-
-    /**
-     *
-     * @retunr Whether all pits are empty or not (Excluding big pit)
-     */
+    @JsonIgnore
     public boolean isEmpty() {
-        for (Pit pit : this.pitRepository) {
+        for (Pit pit : this.pitList) {
             if (!pit.isEmpty() && !pit.isBigPit()) {
                 return false;
             }
@@ -77,6 +64,7 @@ public class StoneBoard {
     /**
      * @return Size of the board including big pit
      */
+    @JsonIgnore
     public int getSize() {
         return PIT_COUNT;
     }
@@ -87,7 +75,7 @@ public class StoneBoard {
      * @return Sub array iterator of pits from the given fromIndex
      */
     public Iterator<Pit> getPitIterator(int fromIndex) {
-        return this.getPitIterator(fromIndex, this.pitRepository.size());
+        return this.getPitIterator(fromIndex, this.pitList.size());
     }
 
     /**
@@ -97,7 +85,7 @@ public class StoneBoard {
      * @return Sub array iterator of pits from the given fromIndex to toIndex
      */
     public Iterator<Pit> getPitIterator(int fromIndex, int toIndex) {
-        return (Iterator<Pit>) pitRepository.subList(fromIndex, pitRepository.size()).iterator();
+        return (Iterator<Pit>) pitList.subList(fromIndex, pitList.size()).iterator();
     }
 
     /**
@@ -108,7 +96,7 @@ public class StoneBoard {
      */
     public void createStoneAtPit(int n, int pitIndex) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
         if (!this.getPit(pitIndex).isBigPit()) {
-            this.pitRepository.get(pitIndex).createStone(n);
+            this.pitList.get(pitIndex).createStone(n);
         } else {
             throw new IllegalArgumentException("Stone cannot be created at bigpit");
         }
@@ -121,7 +109,7 @@ public class StoneBoard {
      * @param pitIndex
      */
     public void addStoneToPit(Stone stone, int pitIndex) throws IndexOutOfBoundsException {
-        this.pitRepository.get(pitIndex).addStone(stone);
+        this.pitList.get(pitIndex).addStone(stone);
     }
 
     /**
@@ -131,7 +119,7 @@ public class StoneBoard {
      * @param pitIndex PitIndex to add stones
      */
     public void addAllStonesToPit(ArrayList<Stone> stones, int pitIndex) throws IndexOutOfBoundsException {
-        this.pitRepository.get(pitIndex).addAllStones(stones);
+        this.pitList.get(pitIndex).addAllStones(stones);
     }
 
     /**
@@ -140,7 +128,7 @@ public class StoneBoard {
      * @return A stone from Pit by given pitIndex
      */
     public Stone getStoneFromPit(int pitIndex) throws IndexOutOfBoundsException {
-        return this.pitRepository.get(pitIndex).getStone();
+        return this.pitList.get(pitIndex).getStone();
     }
 
     /**
@@ -149,7 +137,16 @@ public class StoneBoard {
      * @return All stones from Pit by given pitIndex
      */
     public ArrayList<Stone> getAllStonesFromPit(int pitIndex) throws ArrayIndexOutOfBoundsException {
-        return this.pitRepository.get(pitIndex).getAllStones();
+        return this.pitList.get(pitIndex).getAllStones();
+    }
+
+    /**
+     *
+     * @return Unmodifiable pit objects
+     */
+    public ArrayList<Pit> getPitList() {
+        //TODO think make here read-only
+        return this.pitList;
     }
 
     /**
@@ -160,10 +157,36 @@ public class StoneBoard {
     public int getTotalStoneCount() {
         int sum = 0;
 
-        for (Pit pit : this.pitRepository) {
+        for (Pit pit : this.pitList) {
             sum += pit.getCount();
         }
 
         return sum;
+    }
+
+    /**
+     *
+     * @return Board status as a String: TimeComplexity: O(n)
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Pit pit : this.pitList) {
+
+            String format = "%02d-> ";
+
+            if (pit.isBigPit()) {
+                format = "| %02d | ";
+            }
+
+            String pitUnit = String.format(format, pit.getCount());
+
+            sb.append(pitUnit);
+        }
+
+        sb.append("= ").append(this.getTotalStoneCount());
+
+        return sb.toString();
     }
 }

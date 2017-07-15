@@ -1,14 +1,17 @@
 package com.sayraozden.game.service;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-//@SpringBootApplication
+@SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {
-        //SpringApplication.run(Application.class, args);
+        SpringApplication.run(Application.class, args);
 
         //Command1: {playerID:1, move:5}; || invalid command format
         /*StoneGame stoneGame = new StoneGame();

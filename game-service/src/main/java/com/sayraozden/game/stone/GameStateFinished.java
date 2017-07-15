@@ -27,7 +27,7 @@ public class GameStateFinished implements GameState {
     }
 
     @Override
-    public void addPlayer(int playerID, ArrayList<StonePlayer> playerRepository, int maxPlayers) throws IllegalStateException {
+    public void addPlayer(int playerID, ArrayList<StonePlayer> playerList, int maxPlayers) throws IllegalStateException {
         /* Not allowed for this state */
         throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.ADD_PLAYER);
     }

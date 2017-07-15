@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public interface GameState {
 
-    public void addPlayer(int playerID, ArrayList<StonePlayer> playerRepository, int maxPlayers) throws IllegalStateException;
+    public void addPlayer(int playerID, ArrayList<StonePlayer> playerList, int maxPlayers) throws IllegalStateException;
 
     /**
      * Does move for given player and given pitIndex
@@ -42,9 +42,10 @@ public interface GameState {
      * @throws IllegalStateException
      */
     public void finishGame() throws IllegalStateException;
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @return State name
      */
     //public String getName();

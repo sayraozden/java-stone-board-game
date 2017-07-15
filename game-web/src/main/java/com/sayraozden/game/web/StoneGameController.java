@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
 @Controller
-public class PlayController {
+public class StoneGameController {
 
     /**
      *

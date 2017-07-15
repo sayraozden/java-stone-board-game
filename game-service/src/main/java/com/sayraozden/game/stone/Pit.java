@@ -1,5 +1,6 @@
 package com.sayraozden.game.stone;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 
 /**
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Pit {
 
+    @JsonIgnore
     private ArrayList<Stone> stoneList;
 
     //Is this a normal or big pit
@@ -66,6 +68,7 @@ public class Pit {
      * @return Stone one stone which pit has
      * @throws IndexOutOfBoundsException
      */
+    @JsonIgnore
     public Stone getStone() throws IndexOutOfBoundsException {
         return this.stoneList.remove(0);
     }

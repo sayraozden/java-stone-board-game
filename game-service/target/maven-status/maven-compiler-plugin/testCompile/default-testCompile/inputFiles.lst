@@ -1,2 +1,8 @@
-/Users/sayra/workplace/java-stone-game/game-service/src/test/java/com/sayraozden/game/service/StoneBoardTest.java
-/Users/sayra/workplace/java-stone-game/game-service/src/test/java/com/sayraozden/game/service/PitTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/GameStateWaitingTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/StonePlayerTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/PitTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/GameStateStartedTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/StoneBoardTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/GameStateFinishedTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/StoneGameTest.java
+/Users/sayra/workplace/java-stone-board-game/game-service/src/test/java/com/sayraozden/game/service/GameStateCreatedTest.java

@@ -27,23 +27,23 @@ public class GameStateCreated implements GameState {
     }
 
     @Override
-    public void addPlayer(int playerID, ArrayList<StonePlayer> playerRepository, int maxPlayers) throws IllegalStateException {
+    public void addPlayer(int playerID, ArrayList<StonePlayer> playerList, int maxPlayers) throws IllegalStateException {
 
         logger.info("Add player with id '" + playerID + "'");
 
         /* Represents how many players have been added */
-        int playerCount = playerRepository.size();
+        int playerCount = playerList.size();
 
         if (playerCount < maxPlayers) {
             /* Already added players are less than maximum allowed players then create a StonePlayer and add it to conext playerRepository */
             StonePlayer player = new StonePlayer(playerID);
-            playerRepository.add(player);
+            playerList.add(player);
             logger.debug("Player has been added to playerRepository[" + playerCount + "] Total Players:" + (playerCount + 1));
 
             if ((playerCount + 1) == maxPlayers) {
                 /* Maximum allowed players have been added, then change state to waiting */
                 this.context.setState(new GameStateWaiting(this.context));
-                logger.debug("Maximum number of player[" + maxPlayers + "] has been added {" + playerRepository + "}");
+                logger.debug("Maximum number of player[" + maxPlayers + "] has been added {" + playerList + "}");
             }
         } else {
             /* Maximum number of users have been added */

@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 public class GameStateStarted implements GameState {
 
     final static Logger logger = Logger.getLogger(GameStateStarted.class);
-    
+
     private final StoneGame context;
 
     /**
@@ -27,15 +27,13 @@ public class GameStateStarted implements GameState {
     }
 
     @Override
-    public void addPlayer(int playerID, ArrayList<StonePlayer> playerRepository, int maxPlayers) throws IllegalStateException {
+    public void addPlayer(int playerID, ArrayList<StonePlayer> playerList, int maxPlayers) throws IllegalStateException {
         /* Not allowed for this state */
         throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.ADD_PLAYER);
     }
 
     @Override
-    public StonePlayer doMove(StonePlayer player, int pitIndex) throws IllegalStateException {
-
-        logger.info("Player {playerID:" + player.getID() + "} did move Pit -> " + pitIndex);
+    public StonePlayer doMove(StonePlayer player, int pitIndex) throws IllegalStateException {       
 
         //Current playing players board
         StoneBoard playerBoard = player.getBoard();
@@ -47,7 +45,7 @@ public class GameStateStarted implements GameState {
         int pitToSawPointer = pitIndex;
         Pit pitToSaw = null;
 
-        while (!pitToGet.isEmpty() && pitToSawPointer < playerBoard.getSize()) {
+        while (!pitToGet.isEmpty() && pitToSawPointer < playerBoard.getSize() - 1) {
             /* While current selected pit has stones, saw them to the pits on the right direction until end of the board */
             pitToSaw = playerBoard.getPit(++pitToSawPointer);
             pitToSaw.addStone(pitToGet.getStone());
@@ -65,15 +63,16 @@ public class GameStateStarted implements GameState {
         if (playerBoard.isEmpty() || opponent.getBoard().isEmpty()) {
             /* Game Rule: One of the players board is empty except BigPit then finish game */
             this.context.setState(new GameStateFinished(this.context));
-            this.context.finishGame();
+            this.context.finish();
         }
 
-        logger.debug(player.getBoard());
+        logger.info("Player {playerID:" + player.getID() + "} did move Pit -> " + pitIndex);
+        logger.debug(this.context.toString());
 
         if (pitToSaw != null
                 && pitToSaw.isBigPit()
                 && pitToGet.isEmpty()) {
-            /* Game Rule: After move, Players last stone went to BigPit then player has another turn, else the opponent has it */
+            /* Game Rule: After move, Players last stone went to BigPit then player has another turn, else the opponent has it */            
             return player;
         } else {
             return opponent;

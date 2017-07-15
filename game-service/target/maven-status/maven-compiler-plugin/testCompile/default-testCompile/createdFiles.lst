@@ -1,2 +1,8 @@
-com/sayraozden/game/service/StoneBoardTest.class
+com/sayraozden/game/service/GameStateStartedTest.class
 com/sayraozden/game/service/PitTest.class
+com/sayraozden/game/service/GameStateCreatedTest.class
+com/sayraozden/game/service/GameStateWaitingTest.class
+com/sayraozden/game/service/StoneBoardTest.class
+com/sayraozden/game/service/StonePlayerTest.class
+com/sayraozden/game/service/GameStateFinishedTest.class
+com/sayraozden/game/service/StoneGameTest.class

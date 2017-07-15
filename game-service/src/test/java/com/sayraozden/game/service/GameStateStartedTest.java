@@ -27,7 +27,31 @@ public class GameStateStartedTest {
      * Test of doMove method, of class GameStateStarted.
      */
     @Test
-    public void testDoMove() {
+    public void testDoMove_sawStone() {
+        //TODO Finish doMove test
+    }
+    
+    /**
+     * Test of doMove method, of class GameStateStarted.
+     */
+    @Test
+    public void testDoMove_moveAgain() {
+        //TODO Finish doMove test
+    }
+    
+    /**
+     * Test of doMove method, of class GameStateStarted.
+     */
+    @Test
+    public void testDoMove_collectStones() {
+        //TODO Finish doMove test
+    }
+    
+    /**
+     * Test of doMove method, of class GameStateStarted.
+     */
+    @Test
+    public void testDoMove_gameFinished() {
         //TODO Finish doMove test
     }
 

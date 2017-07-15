@@ -1,7 +1,9 @@
 package com.sayraozden.game.stone;
 
-import com.sayraozden.game.stone.GameStateCreated;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.log4j.Logger;
 
 // TODO Write game explanation and rules here
@@ -10,13 +12,13 @@ import org.apache.log4j.Logger;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-public class StoneGame {
+public class StoneGame implements Serializable {
 
     //Max allowed players for this game 
     private static final int MAX_PLAYERS = 2;
 
     // Holds all players
-    private final ArrayList<StonePlayer> playerRepository;
+    private final ArrayList<StonePlayer> playerList;
 
     // Holds current player which has right to move
     private StonePlayer currentPlayer;
@@ -31,7 +33,17 @@ public class StoneGame {
      */
     public StoneGame() {
         this.setState(new GameStateCreated(this));
-        playerRepository = new ArrayList<>();
+        playerList = new ArrayList<>();
+    }
+
+    public Map<Integer, ArrayList<Pit>> getGameBoard() {
+        Map<Integer, ArrayList<Pit>> gameBoard = new HashMap<>();
+
+        for (StonePlayer player : this.playerList) {
+            gameBoard.put(player.getID(), player.getBoard().getPitList());
+        }
+
+        return gameBoard;
     }
 
     /**
@@ -45,55 +57,71 @@ public class StoneGame {
     }
 
     /**
-     *
-     * @return Current game state
-     */
-    public String getCurrentState() {
-        //TODO Generate an enum to play with states
-        return this.currentState.getClass().toString();
-    }
-
-    /**
      * Adds new player to game
      *
      * @param playerID
      * @throws IllegalStateException
      */
     public void addPlayer(int playerID) throws IllegalStateException {
-        this.currentState.addPlayer(playerID, playerRepository, MAX_PLAYERS);
+        this.currentState.addPlayer(playerID, playerList, MAX_PLAYERS);
     }
 
     /**
      * Does game move
      *
-     * @param playerID
      * @param pitIndex
      * @throws IllegalStateException
      */
-    public void doMove(int playerID, int pitIndex) throws IllegalStateException {
-
-        if (playerID != currentPlayer.getID()) {
-            /* If this turn is not for the aproppriate user then throw exception.  */
-            throw new IllegalStateException("It is player{playerID:" + currentPlayer.getID() + "}s turn");
-        }
-
-        this.currentPlayer = this.currentState.doMove(this.currentPlayer, pitIndex);
+    public void doMove(int pitIndex) throws IllegalStateException {
+        this.currentPlayer = this.currentState.doMove(this.currentPlayer, pitIndex);        
     }
 
     /**
      * Sets opponent players
      */
-    public void startGame() {
-        this.currentPlayer = this.playerRepository.get(0);
-        this.currentState.startGame(playerRepository);
+    public void start() throws IllegalStateException {
+        this.currentPlayer = this.playerList.get(0);
+        this.currentState.startGame(playerList);
     }
 
     /**
      * Counts player points
      */
-    public void finishGame() {
+    public void finish() throws IllegalStateException {
         //TODO return result table
         this.currentState.finishGame();
+    }
+
+    /**
+     *
+     * @return Maximum allowed players for this game
+     */
+    public static int getMaximumAllowedPlayers() {
+        return MAX_PLAYERS;
+    }
+
+    /**
+     *
+     * @return String formatted game status
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        String yourTurnStatement = "Your turn --> ";
+
+        for (StonePlayer player : this.playerList) {
+            
+            if (player.getID() == this.currentPlayer.getID()) {
+                sb.append(yourTurnStatement);
+            } else {
+                sb.append(String.format("%" + yourTurnStatement.length() + "s", " "));
+            }
+
+            String line = String.format("Player {%d} %s \n", player.getID(), player.getBoard());
+            sb.append(line);
+        }
+
+        return sb.toString();
     }
 
 }
