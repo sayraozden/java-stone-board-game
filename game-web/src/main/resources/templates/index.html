@@ -1,10 +1,24 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Game Website</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-</body>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+    <head>
+        <title>Game Website</title>
+        <link rel="stylesheet" href="/css/hello.css"/>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div style="margin-top: 100px;">
+                <ul>
+                    <li><h3><a href="/play/stone">Please click to play StoneGame</a></h3></li>
+                    <li><h3><a href="#">Please click to play Other Game</a></h3></li>
+                    <li><h3><a href="#">Please click to play Other Game 2</a></h3></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <th:block layout:fragment="scripts">
+        <script src="/js/hello.js"></script>
+    </th:block>
 </html>

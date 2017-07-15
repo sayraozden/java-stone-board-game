@@ -13,22 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
 @Controller
-public class StoneGameController {
-
-    /**
-     *
-     * @return
-     */
-    @RequestMapping("/play")
-    public String play() {        
-        return "play";
-    }
+@RequestMapping("/play")
+public class StoneGameController {   
     
     /**
      *
      * @return
      */
-    @RequestMapping("/play/stone")
+    @RequestMapping("/stone")
     public String playStone() {        
         return "game/stone";
     }

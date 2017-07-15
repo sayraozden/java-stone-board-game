@@ -59,6 +59,15 @@ public class StoneGame implements Serializable {
     }
 
     /**
+     *
+     * @return Current game state name
+     */
+    public String getState() {
+        //TODO Do this with enums
+        return this.currentState.getClass().getName();
+    }
+
+    /**
      * Adds new player to game
      *
      * @param playerID

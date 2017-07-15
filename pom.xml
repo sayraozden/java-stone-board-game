@@ -10,8 +10,7 @@
 
     <modules>
         <module>game-service</module>
-        <module>game-web</module>
-        
+        <module>game-web</module>        
     </modules>
 
 </project>

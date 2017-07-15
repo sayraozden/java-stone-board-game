@@ -1,6 +1,16 @@
+.board{    
+    margin-top:100px;    
+}
+
 .board td{    
-    
-    width:20px;
-    height: 20px;
-    border:solid 1px red;
+    border:solid 1px black;
+    padding: 20px;
+}
+
+.green{
+    cursor: pointer;
+    background-color: green;
+}
+.player-name{
+    cursor: default;
 }

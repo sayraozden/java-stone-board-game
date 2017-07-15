@@ -1,8 +1,45 @@
-$(document).ready(function() {
+/* global players */
+
+var players;
+
+
+
+function changeTurn(playerIndex) {
+    $(players[playerIndex]).addClass("green");
+    $(players[playerIndex]).find(".pit").on("click", pitClickHandler);    
+}
+
+function pitClickHandler() {
+
+    var pitIndex = $(this).index() - 1;
+
+    /* Unbind all click events */    
+    
+    $(".playerElement").removeClass("green");
+
     $.ajax({
-        url: "http://localhost:8081/stonegame/play"
-    }).then(function(data) {
-       $('.greeting-id').append(data.id);
-       $('.greeting-content').append(data.content);
+        type: 'POST',
+        url: 'http://localhost:8081/stonegame/play',
+        data: {pitIndex: pitIndex},
+        crossDomain: true,
+        success: function (response) {            
+            var nextPlayerID = response.nextPlayerID;
+            jQuery.each(response.players, function (i, player) {
+                var playerElement = $(players[player.id]);
+                jQuery.each(player.board.pits, function (j, pit) {
+                    var pitElement = $(playerElement).find("td").get(pit.index + 1);
+                    $(pitElement).html(pit.count);
+                });
+            });
+            //changeTurn(nextPlayerID);
+        },
+        fail: function (error) {
+            console.error(error);
+        }
     });
+}
+
+$(document).ready(function () {
+    players = [$("#player1"), $("#player2")];
+    changeTurn(0);
 });
