@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-@RestController
+ @CrossOrigin(origins = "http://localhost:8080")
 @SessionAttributes("stoneGame")
 @RequestMapping(value = "/stonegame")
+@RestController
 public class StoneGameController {
 
     final static Logger logger = Logger.getLogger(StoneGameController.class);
@@ -44,8 +46,8 @@ public class StoneGameController {
      * @param game
      * @param pitIndex
      * @return
-     */
-    @RequestMapping(method = RequestMethod.POST, value = "/console")
+     */    
+    @RequestMapping(method = RequestMethod.POST, value = "/console")    
     public String playStoneGameConsole(
             Model model,
             HttpServletRequest request,
@@ -74,7 +76,7 @@ public class StoneGameController {
      * @param game
      * @param pitIndex
      * @return
-     */
+     */    
     @RequestMapping(method = RequestMethod.POST, value = "/play")
     public StoneGame playStoneGame(
             Model model,

@@ -6,23 +6,22 @@ var players;
 
 function changeTurn(playerIndex) {
     $(players[playerIndex]).addClass("green");
-    $(players[playerIndex]).find(".pit").on("click", pitClickHandler);    
+    $(players[playerIndex]).find(".pit").on("click", pitClickHandler);
 }
 
 function pitClickHandler() {
 
     var pitIndex = $(this).index() - 1;
 
-    /* Unbind all click events */    
-    
+    /* Unbind all click events */
+
     $(".playerElement").removeClass("green");
 
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8081/stonegame/play',
         data: {pitIndex: pitIndex},
-        crossDomain: true,
-        success: function (response) {            
+        success: function (response) {
             var nextPlayerID = response.nextPlayerID;
             jQuery.each(response.players, function (i, player) {
                 var playerElement = $(players[player.id]);
@@ -40,6 +39,10 @@ function pitClickHandler() {
 }
 
 $(document).ready(function () {
+    $.ajaxSetup({
+        xhrFields: {withCredentials: true},
+        crossDomain: true
+    });
     players = [$("#player1"), $("#player2")];
     changeTurn(0);
 });
