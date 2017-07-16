@@ -11,14 +11,14 @@ import java.util.Iterator;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-@JsonIgnoreProperties({"empty", "size","totalStoneCount"})
+@JsonIgnoreProperties({"empty", "size", "totalStoneCount"})
 public class StoneBoard {
 
     //Maximum number of pits on the board
-    private static final int PIT_COUNT = 7;
+    private static int pitCount = 7;
 
     //Maximum number of stones on the board
-    private static final int STONE_COUNT = 6;
+    private static int stoneCount = 6;
 
     //Pit repository
     private final ArrayList<Pit> pitList;
@@ -30,14 +30,14 @@ public class StoneBoard {
         this.pitList = new ArrayList<>();
 
         /* Create all stones on the board */
-        for (int i = 0; i < PIT_COUNT - 1; i++) {
+        for (int i = 0; i < pitCount - 1; i++) {
             Pit pit = new Pit(i);
-            pit.createStone(STONE_COUNT);
+            pit.createStone(stoneCount);
             pitList.add(pit);
         }
 
         /* Add a big pit at the most right place of the board */
-        pitList.add(new Pit(PIT_COUNT - 1, true));
+        pitList.add(new Pit(pitCount - 1, true));
     }
 
     /**
@@ -66,7 +66,7 @@ public class StoneBoard {
      * @return Size of the board including big pit
      */
     public int getSize() {
-        return PIT_COUNT;
+        return pitCount;
     }
 
     /**

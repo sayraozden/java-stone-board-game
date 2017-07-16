@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
- @CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @SessionAttributes("stoneGame")
 @RequestMapping(value = "/stonegame")
 @RestController
@@ -46,8 +46,8 @@ public class StoneGameController {
      * @param game
      * @param pitIndex
      * @return
-     */    
-    @RequestMapping(method = RequestMethod.POST, value = "/console")    
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/console")
     public String playStoneGameConsole(
             Model model,
             HttpServletRequest request,
@@ -76,7 +76,7 @@ public class StoneGameController {
      * @param game
      * @param pitIndex
      * @return
-     */    
+     */
     @RequestMapping(method = RequestMethod.POST, value = "/play")
     public StoneGame playStoneGame(
             Model model,

@@ -1,9 +1,5 @@
 package com.sayraozden.game.stone;
 
-import com.sayraozden.game.stone.StoneGame;
-import com.sayraozden.game.stone.GameState;
-import com.sayraozden.game.stone.GameStateCreated;
-import com.sayraozden.game.stone.StonePlayer;
 import java.util.ArrayList;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;

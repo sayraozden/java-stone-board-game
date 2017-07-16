@@ -11,11 +11,9 @@ import org.apache.log4j.Logger;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-public class GameStateFinished implements GameState {
+public class GameStateFinished extends GameState {
 
     final static Logger logger = Logger.getLogger(GameStateFinished.class);
-
-    private final StoneGame context;
 
     /**
      * Constructor.
@@ -41,12 +39,17 @@ public class GameStateFinished implements GameState {
     @Override
     public void startGame(ArrayList<StonePlayer> playerRepository) throws IllegalStateException {
         /* Not allowed for this state */
-        throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.DO_MOVE);
+        throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.START_GAME);
     }
 
     @Override
     public void finishGame() throws IllegalStateException {
         this.context.setState(new GameStateFinished(this.context));
+    }
+
+    @Override
+    public String getStateOutput() {
+        return this.context.getGameStatus() + this.context.getWinnerTable();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.sayraozden.game.stone;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,10 +12,11 @@ import org.apache.log4j.Logger;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
+@JsonIgnoreProperties({"gameStatus", "winnerTable"})
 public class StoneGame implements Serializable {
 
     //Max allowed players for this game 
-    private static final int MAX_PLAYERS = 2;
+    private static int maxPlayers = 2;
 
     // Holds all players    
     private final ArrayList<StonePlayer> playerList;
@@ -64,7 +66,7 @@ public class StoneGame implements Serializable {
      */
     public String getState() {
         //TODO Do this with enums
-        return this.currentState.getClass().getName();
+        return this.currentState.getClass().getSimpleName();
     }
 
     /**
@@ -74,7 +76,7 @@ public class StoneGame implements Serializable {
      * @throws IllegalStateException
      */
     public void addPlayer(int playerID) throws IllegalStateException {
-        this.currentState.addPlayer(playerID, playerList, MAX_PLAYERS);
+        this.currentState.addPlayer(playerID, playerList, maxPlayers);
     }
 
     /**
@@ -108,21 +110,20 @@ public class StoneGame implements Serializable {
      * @return Maximum allowed players for this game
      */
     public static int getMaximumAllowedPlayers() {
-        return MAX_PLAYERS;
+        return maxPlayers;
     }
 
     /**
-     *
-     * @return String formatted game status
+     * @return Game status as string
      */
-    @Override
-    public String toString() {
+    public String getGameStatus() {
+
         StringBuilder sb = new StringBuilder();
         String yourTurnStatement = "Your turn --> ";
 
-        for (StonePlayer player : this.playerList) {
+        for (StonePlayer player : playerList) {
 
-            if (player.getID() == this.currentPlayer.getID()) {
+            if (player.getID() == this.getNextPlayerID()) {
                 sb.append(yourTurnStatement);
             } else {
                 sb.append(String.format("%" + yourTurnStatement.length() + "s", " "));
@@ -133,6 +134,41 @@ public class StoneGame implements Serializable {
         }
 
         return sb.toString();
+
+    }
+    
+    /**
+     * 
+     * @return Winner table as string
+     */
+    public String getWinnerTable() {
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("Game Finished \n");
+        StonePlayer winner = this.playerList.get(0);
+
+        for (StonePlayer player : this.playerList) {
+            String line = String.format("Player{%d} Score -> %d \n", player.getID(), player.getScore());
+            sb.append(line);
+            
+            if (player.getScore() > winner.getScore()) {
+                winner = player;
+            }
+        }
+
+        sb.append(String.format("Winner is Player{%d}", winner.getID()));
+
+        return sb.toString();
+        
+    }
+
+    /**
+     *
+     * @return String formatted game status
+     */
+    @Override
+    public String toString() {
+        return this.currentState.getStateOutput();
     }
 
 }

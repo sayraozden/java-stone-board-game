@@ -14,9 +14,11 @@ import java.util.ArrayList;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-public interface GameState {
+public abstract class GameState {
 
-    public void addPlayer(int playerID, ArrayList<StonePlayer> playerList, int maxPlayers) throws IllegalStateException;
+    protected StoneGame context;
+
+    public abstract void addPlayer(int playerID, ArrayList<StonePlayer> playerList, int maxPlayers) throws IllegalStateException;
 
     /**
      * Does move for given player and given pitIndex
@@ -26,7 +28,7 @@ public interface GameState {
      * @return Next player
      * @throws IllegalStateException
      */
-    public StonePlayer doMove(StonePlayer player, int pitIndex) throws IllegalStateException;
+    public abstract StonePlayer doMove(StonePlayer player, int pitIndex) throws IllegalStateException;
 
     /**
      * Sets player opposite players before start the game
@@ -34,19 +36,26 @@ public interface GameState {
      * @param playerRepository
      * @throws IllegalStateException
      */
-    public void startGame(ArrayList<StonePlayer> playerRepository) throws IllegalStateException;
+    public abstract void startGame(ArrayList<StonePlayer> playerRepository) throws IllegalStateException;
 
     /**
      * Finishes game
      *
      * @throws IllegalStateException
      */
-    public void finishGame() throws IllegalStateException;
+    public abstract void finishGame() throws IllegalStateException;
 
     /**
-     * *
      *
-     * @return State name
+     * @return Game status as a console string
      */
-    //public String getName();
+    public abstract String getStateOutput();
+
+    /**
+     *
+     * @return State name as string
+     */
+    public String getStateName() {
+        return this.getClass().getSimpleName();
+    }
 }

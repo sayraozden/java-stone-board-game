@@ -11,11 +11,9 @@ import org.apache.log4j.Logger;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-public class GameStateCreated implements GameState {
+public class GameStateCreated extends GameState {
 
-    final static Logger logger = Logger.getLogger(GameStateCreated.class);
-
-    private final StoneGame context;
+    final static Logger logger = Logger.getLogger(GameStateCreated.class);   
 
     /**
      * Constructor.
@@ -69,4 +67,8 @@ public class GameStateCreated implements GameState {
         throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.FINISH_GAME);
     }
 
+    @Override
+    public String getStateOutput() {
+        return this.getStateName();
+    }
 }

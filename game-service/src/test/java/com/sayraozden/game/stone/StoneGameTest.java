@@ -36,7 +36,7 @@ public class StoneGameTest {
         this.stoneGame.addPlayer(0);
         this.stoneGame.addPlayer(1);
 
-        assertThat(this.stoneGame.getState(), is(GameStateWaiting.class.getName()));
+        assertThat(this.stoneGame.getState(), is(GameStateWaiting.class.getSimpleName()));
     }
 
     /**
@@ -98,7 +98,7 @@ public class StoneGameTest {
         this.stoneGame.addPlayer(1);
         this.stoneGame.start();
 
-        assertThat(this.stoneGame.getState(), is(GameStateStarted.class.getName()));
+        assertThat(this.stoneGame.getState(), is(GameStateStarted.class.getSimpleName()));
     }
 
     /**

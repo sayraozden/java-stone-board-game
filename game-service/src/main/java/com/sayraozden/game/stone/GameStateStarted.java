@@ -11,11 +11,9 @@ import org.apache.log4j.Logger;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-public class GameStateStarted implements GameState {
+public class GameStateStarted extends GameState {
 
     final static Logger logger = Logger.getLogger(GameStateStarted.class);
-
-    private final StoneGame context;
 
     /**
      * Constructor.
@@ -33,7 +31,7 @@ public class GameStateStarted implements GameState {
     }
 
     @Override
-    public StonePlayer doMove(StonePlayer player, int pitIndex) throws IllegalStateException {       
+    public StonePlayer doMove(StonePlayer player, int pitIndex) throws IllegalStateException {
 
         //Current playing players board
         StoneBoard playerBoard = player.getBoard();
@@ -72,7 +70,7 @@ public class GameStateStarted implements GameState {
         if (pitToSaw != null
                 && pitToSaw.isBigPit()
                 && pitToGet.isEmpty()) {
-            /* Game Rule: After move, Players last stone went to BigPit then player has another turn, else the opponent has it */            
+            /* Game Rule: After move, Players last stone went to BigPit then player has another turn, else the opponent has it */
             return player;
         } else {
             return opponent;
@@ -89,6 +87,11 @@ public class GameStateStarted implements GameState {
     public void finishGame() throws IllegalStateException {
         /* Not allowed for this state */
         throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.FINISH_GAME);
+    }
+
+    @Override
+    public String getStateOutput() {
+        return this.context.getGameStatus();
     }
 
 }

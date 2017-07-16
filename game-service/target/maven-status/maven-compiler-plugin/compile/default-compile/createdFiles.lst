@@ -1,7 +1,6 @@
 com/sayraozden/game/stone/GameStateStarted.class
 com/sayraozden/game/service/Application.class
 com/sayraozden/game/stone/StonePlayer.class
-com/sayraozden/game/service/SampleResponse.class
 com/sayraozden/game/service/StoneGameController.class
 com/sayraozden/game/stone/IllegalGameStateException$2.class
 com/sayraozden/game/stone/IllegalGameStateException$3.class

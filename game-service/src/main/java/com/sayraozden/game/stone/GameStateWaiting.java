@@ -11,11 +11,9 @@ import org.apache.log4j.Logger;
  *
  * @author Fuat Sayra OZDEN <sayra@sayraozden.com>
  */
-public class GameStateWaiting implements GameState {
+public class GameStateWaiting extends GameState {
 
     final static Logger logger = Logger.getLogger(GameStateWaiting.class);
-
-    private final StoneGame context;
 
     /**
      * Constructor.
@@ -50,6 +48,11 @@ public class GameStateWaiting implements GameState {
     @Override
     public void finishGame() throws IllegalStateException {
         throw new IllegalGameStateExceptionFactory().getInstance(IllegalGameStateException.FINISH_GAME);
+    }
+
+    @Override
+    public String getStateOutput() {
+        return this.getStateName();
     }
 
 }
